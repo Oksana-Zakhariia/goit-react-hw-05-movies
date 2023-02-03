@@ -23,17 +23,25 @@ export const Home = () => {
     };
     getTrendingMovies();
   }, []);
+  const getMoviesInfo = movieId => {
+    console.log(movieId);
+  };
 
-  return <FilmList films={movies}></FilmList>;
+  return (
+    <div>
+      <h1> Trending today</h1>
+      <FilmList films={movies} onClick={getMoviesInfo}></FilmList>;
+    </div>
+  );
 };
 
-const getMovies = async () => {
-  try {
-    const response = await fetchMoviesByName();
-    console.log(response);
-  } catch {
-  } finally {
-  }
-};
+// const getMovies = async () => {
+//   try {
+//     const response = await fetchMoviesByName();
+//     console.log(response);
+//   } catch {
+//   } finally {
+//   }
+// };
 
-getMovies();
+// getMovies();
