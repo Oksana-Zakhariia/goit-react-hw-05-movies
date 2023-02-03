@@ -11,6 +11,7 @@ import { useState } from 'react';
 export const App = () => {
   const [query, setquery] = useState();
   const handleSubmit = name => {
+    console.log(query);
     setquery(name);
     console.log(name);
   };
