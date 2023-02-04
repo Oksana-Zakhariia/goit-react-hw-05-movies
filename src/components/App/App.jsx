@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Home } from 'components/pages/Home/Home';
 import { Movies } from 'components/pages/Movies/Movies';
 import { MovieDetails } from '../pages/MovieDetails/MovieDetails';
@@ -10,6 +10,7 @@ import { SharedLayout } from 'components/SharedLayout/SharedLayout';
 
 export const App = () => {
   const [query, setquery] = useState();
+  console.log(query);
   const handleSubmit = name => {
     setquery(name);
   };
@@ -17,13 +18,13 @@ export const App = () => {
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Home />} />
-        <Route path="movies" element={<Movies />}>
-          <Route path="movies/:movieId" element={<MovieDetails />}>
+        <Route path="movies" element={<Movies onSubmit={handleSubmit} />}>
+          <Route path="/movies/:movieId" element={<MovieDetails />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
-          <Route path="*" element={<NotFound />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

@@ -32,7 +32,7 @@ export const Home = () => {
   return (
     <div>
       <h1> Trending today</h1>
-      <FilmList films={movies} onClick={getMoviesInfo}></FilmList>;
+      <FilmList movies={movies} onClick={getMoviesInfo}></FilmList>;
     </div>
   );
 };

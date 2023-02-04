@@ -1,20 +1,28 @@
 import { useParams } from 'react-router-dom';
-import { getFilmById } from 'services/getFilmById';
+import { getMovieById } from 'services/getMovieById';
 import { Link, Outlet } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export const MovieDetails = filmId => {
+export const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
+  console.log(error);
+  console.log(loading);
+
   useEffect(() => {
-    const getMovieById = async id => {
+    const getFilmById = async id => {
       try {
         setLoading(true);
-        const response = await getFilmById(505642);
+        const response = await getMovieById(id);
         setMovie(response);
         console.log(response);
+        if (response.success) {
+          navigate('/movies/:movieId', { replace: true });
+        }
       } catch {
         setError(
           'There is some problems with lisding this page. please try to reload.'
@@ -24,8 +32,8 @@ export const MovieDetails = filmId => {
       }
     };
     console.log(useParams);
-    getMovieById();
-  }, [id]);
+    getFilmById();
+  }, [id, navigate]);
 
   return (
     <div>

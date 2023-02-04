@@ -1,35 +1,23 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { toast } from 'react-toastify';
 
-export const Movies = ({ onSubmit }) => {
+import { toast } from 'react-toastify';
+import { SearchBar } from 'components/SearchBar/SearchBar';
+
+export const Movies = () => {
   const [name, setName] = useState('');
-  const handleName = event => {
-    setName(event.currentTarget.value.toLowerCase());
+  const handleName = name => {
+    setName(name);
   };
   const handleSubmit = event => {
+    const form = event.currentTarget;
     event.preventDefault();
     if (name.trim() === '') {
       toast.error('Write search parameters', { theme: 'colored' });
       return;
     }
-    onSubmit(name);
-    setName('');
+    form.reset();
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        autoComplete="off"
-        value={name}
-        placeholder="Enter the film name"
-        type="text"
-        onChange={handleName}
-      ></input>
-      <button onClick={handleSubmit} type="submit">
-        Search
-      </button>
-    </form>
-  );
+  return <SearchBar onSubmit={handleSubmit} onChange={handleName}></SearchBar>;
 };
 // Movies.propTypes = { onSubmit: PropTypes.func.isRequired };
