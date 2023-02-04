@@ -32,4 +32,4 @@ export const Movies = ({ onSubmit }) => {
     </form>
   );
 };
-Movies.propTypes = { onSubmit: PropTypes.func.isRequired };
+// Movies.propTypes = { onSubmit: PropTypes.func.isRequired };

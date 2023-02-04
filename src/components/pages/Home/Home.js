@@ -12,6 +12,7 @@ export const Home = () => {
         setLoading(true);
         const response = await fetchTrendingFilms();
         setMovies(response.results);
+        console.log(response.results);
       } catch {
         setError(
           'There is some problems with lisding this page. please try to reload.'
