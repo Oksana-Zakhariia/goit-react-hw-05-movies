@@ -4,7 +4,7 @@ export const FilmList = ({ movies, onClick }) => {
     <div>
       {movies.map(({ id, title }) => (
         <li key={id}>
-          <Link to={`${id}`}>
+          <Link to={`movies/${id}`}>
             {/* <img src={film.poster_path} alt={film.title}></img> */}
             <h2>{title}</h2>
           </Link>

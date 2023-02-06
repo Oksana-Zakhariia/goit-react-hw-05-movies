@@ -14,15 +14,12 @@ export const MovieDetails = () => {
   console.log(loading);
 
   useEffect(() => {
-    const getFilmById = async id => {
+    const getFilmById = async () => {
       try {
         setLoading(true);
         const response = await getMovieById(id);
         setMovie(response);
         console.log(response);
-        if (response.success) {
-          navigate('/movies/:movieId', { replace: true });
-        }
       } catch {
         setError(
           'There is some problems with lisding this page. please try to reload.'
@@ -31,9 +28,9 @@ export const MovieDetails = () => {
         setLoading(false);
       }
     };
-    console.log(useParams);
+
     getFilmById();
-  }, [id, navigate]);
+  }, [id]);
 
   return (
     <div>
