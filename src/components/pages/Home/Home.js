@@ -12,10 +12,9 @@ export const Home = () => {
         setLoading(true);
         const response = await fetchTrendingFilms();
         setMovies(response.results);
-        console.log(response.results);
       } catch {
         setError(
-          'There is some problems with lisding this page. please try to reload.'
+          'There is some problems with lisding this page. Please try to reload.'
         );
       } finally {
         setLoading(false);
@@ -23,27 +22,14 @@ export const Home = () => {
     };
     getTrendingMovies();
   }, []);
-  console.log(loading);
-  console.log(error);
-  const getMoviesInfo = movieId => {
-    console.log(movieId);
-  };
+  // const getMoviesInfo = movieId => {
+  //   console.log(movieId);
+  // };
 
   return (
     <div>
       <h1> Trending today</h1>
-      <FilmList movies={movies} onClick={getMoviesInfo}></FilmList>;
+      <FilmList movies={movies}></FilmList>;
     </div>
   );
 };
-
-// const getMovies = async () => {
-//   try {
-//     const response = await fetchMoviesByName();
-//     console.log(response);
-//   } catch {
-//   } finally {
-//   }
-// };
-
-// getMovies();
