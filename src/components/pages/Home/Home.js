@@ -1,8 +1,9 @@
 import { fetchTrendingFilms } from 'services/fetchTrendingFilms';
 import { FilmList } from 'components/FilmList/FilmList';
 import { useEffect, useState } from 'react';
+import { Loader } from 'components/Loader/Loader';
 
-export const Home = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,14 +23,14 @@ export const Home = () => {
     };
     getTrendingMovies();
   }, []);
-  // const getMoviesInfo = movieId => {
-  //   console.log(movieId);
-  // };
+  console.log(error);
 
   return (
     <div>
       <h1> Trending today</h1>
-      <FilmList movies={movies}></FilmList>;
+      {loading && <Loader />}
+      <FilmList movies={movies}></FilmList>
     </div>
   );
 };
+export default Home;

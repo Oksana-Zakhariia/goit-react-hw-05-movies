@@ -1,30 +1,26 @@
+import { lazy } from 'react';
+import SharedLayout from '../SharedLayout/SharedLayout';
 import { Routes, Route } from 'react-router-dom';
-import { Home } from 'components/pages/Home/Home';
-import { Movies } from 'components/pages/Movies/Movies';
-import { MovieDetails } from '../pages/MovieDetails/MovieDetails';
-import { Cast } from 'components/Cast/Cast';
-import { Reviews } from 'components/Reviews/Reviews';
-import { NotFound } from 'components/pages/NotFound/NotFound';
-import { useState } from 'react';
-import { SharedLayout } from 'components/SharedLayout/SharedLayout';
+
+const Home = lazy(() => import('../pages/Home/Home'));
+const Movies = lazy(() => import('../pages/Movies/Movies'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('../Cast/Cast'));
+const Reviews = lazy(() => import('../Reviews/Reviews'));
+const NotFound = lazy(() => import('../NotFound/NotFound'));
 
 export const App = () => {
-  // const [query, setquery] = useState();
-  // console.log(query);
-  // const handleSubmit = name => {
-  //   setquery(name);
-  // };
   return (
     <Routes>
       <Route path="/" element={<SharedLayout />}>
         <Route index element={<Home />} />
         <Route path="movies" element={<Movies />} />
-        <Route path="movies/:id" element={<MovieDetails />}>
+        <Route path="movies/:movieId" element={<MovieDetails />}>
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

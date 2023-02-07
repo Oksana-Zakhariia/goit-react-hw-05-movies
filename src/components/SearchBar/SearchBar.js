@@ -1,20 +1,20 @@
 import { useState } from 'react';
-
+import { PropTypes } from 'prop-types';
 import { toast } from 'react-toastify';
+
 export const SearchBar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
   const handleInput = event => {
-    setQuery(event.target.value);
+    setQuery(event.target.value.toLowerCase());
   };
   const handleSubmit = event => {
-    const form = event.currentTarget;
     event.preventDefault();
     if (query.trim() === '') {
-      toast.error('Write search parameters', { theme: 'colored' });
+      alert('Write search parameters');
       return;
     }
     onSubmit(query);
-    form.reset();
+    setQuery('');
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -29,3 +29,5 @@ export const SearchBar = ({ onSubmit }) => {
     </form>
   );
 };
+
+SearchBar.propTypes = { onSubmit: PropTypes.func.isRequired };

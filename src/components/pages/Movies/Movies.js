@@ -1,34 +1,33 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { fetchMoviesByName } from 'services/fetchMoviesByName';
-
 import { SearchBar } from 'components/SearchBar/SearchBar';
-import { FilmList } from 'components/FilmList/FilmList';
+import { MovieList } from 'components/MovieList/MovieList';
+import { Loader } from 'components/Loader/Loader';
 
-export const Movies = () => {
+const Movies = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
   const query = searchParams.get('query');
-  console.log(query);
   const handleSubmit = query => {
-    console.log(query);
-    setSearchParams({ query });
+    setSearchParams({ query: query });
   };
 
   useEffect(() => {
+    if (!query) {
+      console.log('there is no query');
+      return;
+    }
     const getMoviesByName = async () => {
-      if (query === '') {
-        return;
-      }
       try {
         setLoading(true);
-        const response = await fetchMoviesByName(query);
-        setMovies(response.results);
+        const data = await fetchMoviesByName(query);
+        setMovies(data);
       } catch {
         setError(
-          'There is some problems with lisding this page. please try to reload.'
+          'There is some problems with lisding this page. Please try to reload.'
         );
       } finally {
         setLoading(false);
@@ -36,12 +35,23 @@ export const Movies = () => {
     };
     getMoviesByName();
   }, [query]);
+  console.log(error);
+
+  const updateQueryString = query => {
+    const nextParams = query !== '' ? { query } : {};
+    setSearchParams(nextParams);
+  };
 
   return (
     <>
-      <SearchBar onSubmit={handleSubmit}></SearchBar>;
-      <FilmList movies={movies} />
+      {loading && <Loader />}
+      <SearchBar
+        onSubmit={handleSubmit}
+        onChange={updateQueryString}
+        value={query}
+      ></SearchBar>
+      <MovieList movies={movies} />
     </>
   );
 };
-// Movies.propTypes = { onSubmit: PropTypes.func.isRequired };
+export default Movies;
