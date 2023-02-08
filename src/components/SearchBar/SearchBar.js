@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { PropTypes } from 'prop-types';
-import { toast } from 'react-toastify';
 
 export const SearchBar = ({ onSubmit }) => {
   const [query, setQuery] = useState('');
