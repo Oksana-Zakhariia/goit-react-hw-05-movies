@@ -1,9 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { getMovieById } from 'services/getMovieById';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect, useState, Suspense } from 'react';
 import { MovieInformation } from 'components/MovieInformation/MovieInformation';
 import { Loader } from 'components/Loader/Loader';
+import { ItemLink, LinkStyled } from './MovieDetails.styled';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
@@ -37,23 +38,23 @@ const MovieDetails = () => {
 
   return (
     <div>
-      <Link to={backLinkHref}>Back</Link>
+      <LinkStyled to={backLinkHref}>Back</LinkStyled>
       {loading && <Loader />}
       {<MovieInformation movie={movie} />}
       <div>
         <h2>Additional information</h2>
         <ul>
-          <li>
-            <Link to={'cast'} state={{ from: location?.state?.from }}>
+          <ItemLink>
+            <LinkStyled to={'cast'} state={{ from: location?.state?.from }}>
               Cast
-            </Link>
-          </li>
+            </LinkStyled>
+          </ItemLink>
 
-          <li>
-            <Link to={'reviews'} state={{ from: location?.state?.from }}>
+          <ItemLink>
+            <LinkStyled to={'reviews'} state={{ from: location?.state?.from }}>
               Reviews
-            </Link>
-          </li>
+            </LinkStyled>
+          </ItemLink>
         </ul>
         <Suspense fallback={<div>Loading subpage...</div>}>
           <Outlet />

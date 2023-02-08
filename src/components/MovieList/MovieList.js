@@ -1,5 +1,7 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { FilmLink } from './MovieList.styled';
+import { FcFilmReel } from 'react-icons/fc';
 export const MovieList = ({ movies }) => {
   const location = useLocation();
   return (
@@ -8,9 +10,10 @@ export const MovieList = ({ movies }) => {
         <ul>
           {movies.map(({ id, title }) => (
             <li key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location }}>
-                <p>{title}</p>
-              </Link>
+              <FilmLink to={`/movies/${id}`} state={{ from: location }}>
+                <FcFilmReel size="24px" />
+                <h2>{title}</h2>
+              </FilmLink>
             </li>
           ))}
         </ul>
