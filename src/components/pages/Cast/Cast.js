@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Loader } from '../Loader/Loader';
+import { Loader } from '../../Loader/Loader';
 import { fetchMovieCast } from 'services/fetchMovieCast';
 
-const Cast = () => {
+export default function Cast() {
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,11 +26,11 @@ const Cast = () => {
     };
     Content();
   }, [movieId]);
-  console.log(error);
 
   return (
     <div>
       {loading && <Loader />}
+      {error && 'Sorry, we have no information'}
       <ul>
         {cast.map(item => (
           <li key={item.id}>
@@ -46,5 +46,4 @@ const Cast = () => {
       </ul>
     </div>
   );
-};
-export default Cast;
+}

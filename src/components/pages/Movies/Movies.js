@@ -5,7 +5,7 @@ import { SearchBar } from 'components/SearchBar/SearchBar';
 import { MovieList } from 'components/MovieList/MovieList';
 import { Loader } from 'components/Loader/Loader';
 
-const Movies = () => {
+export default function Movies() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,7 +17,6 @@ const Movies = () => {
 
   useEffect(() => {
     if (!query) {
-      console.log('there is no query');
       return;
     }
     const getMoviesByName = async () => {
@@ -27,7 +26,7 @@ const Movies = () => {
         setMovies(data);
       } catch {
         setError(
-          'There is some problems with lisding this page. Please try to reload.'
+          'There is some problems with loading this page. Please try to reload.'
         );
       } finally {
         setLoading(false);
@@ -35,7 +34,6 @@ const Movies = () => {
     };
     getMoviesByName();
   }, [query]);
-  console.log(error);
 
   const updateQueryString = query => {
     const nextParams = query !== '' ? { query } : {};
@@ -45,6 +43,8 @@ const Movies = () => {
   return (
     <>
       {loading && <Loader />}
+      {error &&
+        'There is some problems with loading this page. Please try to reload.'}
       <SearchBar
         onSubmit={handleSubmit}
         onChange={updateQueryString}
@@ -53,5 +53,4 @@ const Movies = () => {
       <MovieList movies={movies} />
     </>
   );
-};
-export default Movies;
+}

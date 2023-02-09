@@ -1,9 +1,9 @@
 import { fetchMovieReviews } from 'services/fetchMovieReviews';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Loader } from '../Loader/Loader';
+import { Loader } from '../../Loader/Loader';
 
-const Reviews = () => {
+export default function Reviews() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -24,12 +24,11 @@ const Reviews = () => {
     };
     getReviews();
   }, [movieId]);
-  console.log(error);
-  console.log(reviews);
 
   return (
     <>
       {loading && <Loader />}
+      {error && 'There is no reviews yet.'}
       {reviews.length !== 0 ? (
         <ul>
           {reviews.map(({ id, author, content }) => (
@@ -44,5 +43,4 @@ const Reviews = () => {
       )}
     </>
   );
-};
-export default Reviews;
+}

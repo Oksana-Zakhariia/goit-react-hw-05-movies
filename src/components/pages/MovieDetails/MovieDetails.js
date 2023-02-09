@@ -6,7 +6,7 @@ import { MovieInformation } from 'components/MovieInformation/MovieInformation';
 import { Loader } from 'components/Loader/Loader';
 import { ItemLink, LinkStyled } from './MovieDetails.styled';
 
-const MovieDetails = () => {
+export default function MovieDetails() {
   const [movie, setMovie] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -34,12 +34,13 @@ const MovieDetails = () => {
 
     Film();
   }, [movieId]);
-  console.log(error);
 
   return (
     <div>
       <LinkStyled to={backLinkHref}>Back</LinkStyled>
       {loading && <Loader />}
+      {error &&
+        'There is some problems with loading this page. Please try to reload.'}
       {<MovieInformation movie={movie} />}
       <div>
         <h2>Additional information</h2>
@@ -62,5 +63,4 @@ const MovieDetails = () => {
       </div>
     </div>
   );
-};
-export default MovieDetails;
+}

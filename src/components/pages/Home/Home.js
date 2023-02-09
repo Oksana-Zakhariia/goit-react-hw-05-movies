@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Loader } from 'components/Loader/Loader';
 import { Title } from './Home.styled';
 
-const Home = () => {
+export default function Home() {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,14 +24,14 @@ const Home = () => {
     };
     getTrendingMovies();
   }, []);
-  console.log(error);
 
   return (
     <div>
       <Title> Trending today</Title>
       {loading && <Loader />}
+      {error &&
+        'There is some problems with loading this page. Please try to reload.'}
       <FilmList movies={movies}></FilmList>
     </div>
   );
-};
-export default Home;
+}
